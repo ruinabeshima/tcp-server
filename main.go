@@ -5,8 +5,6 @@ import (
 	"fmt"
 )
 
-
-
 func main(){
 
 	// Open port 8080 on machine and listen for connections 
@@ -48,4 +46,13 @@ func handleConnection(conn net.Conn){
 
 	// IP of connecting client 
 	fmt.Println("Connection coming from %s", conn.RemoteAddr().String())
+
+	/*
+		make(): allocate and initialise dynamic data structures 
+		[]byte: slice (dynamically sized array) of bytes 
+		Go automatically fills all 1024 positions with default 0 value.  
+
+		Creates a byte buffer to store incoming data 
+	*/
+	buffer := make([]byte, 1024)
 }
