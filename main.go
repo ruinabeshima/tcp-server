@@ -20,4 +20,14 @@ func main(){
 
 	fmt.Println("TCP server is listening on port 8080...")
 
+	// Infinite for loop to keep server open forever 
+	for {
+		// Accept incoming client connections 
+		conn, err = listener.Accept() 
+		if err != "nil" {
+			fmt.Println("Error accepting connection: ", err)
+			continue 
+		}
+	}
+
 }
