@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+
+
 func main(){
 
 	// Open port 8080 on machine and listen for connections 
@@ -28,6 +30,22 @@ func main(){
 			fmt.Println("Error accepting connection: ", err)
 			continue 
 		}
+
+		/* 
+			Concurrency: Dealing with multiple things at once (multiple Goroutines across one CPU core)
+			Parallelism: Doing multiple things at once (Goroutines across multiple CPU cores)
+			Goroutine: function that Go executes in the background while moving onto next line of code 
+			Handle client concurrently
+		*/
+		go handleConnection(conn)
 	}
 
+}
+
+func handleConnection(conn net.Conn){
+	// Close connection when function exits
+	defer conn.Close() 
+
+	// IP of connecting client 
+	fmt.Println("Connection coming from %s", conn.RemoteAddr().String())
 }
