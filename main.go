@@ -55,4 +55,20 @@ func handleConnection(conn net.Conn){
 		Creates a byte buffer to store incoming data 
 	*/
 	buffer := make([]byte, 1024)
+
+	for {
+		/* 
+			Read data from client into buffer 
+			bytesRead: How many bytes were actually written into the buffer
+		*/
+		bytesRead, err := conn.Read(buffer)
+		if err != nil {
+			fmt.Printf("Client disconnected: %s \n", conn.RemoteAddr().String())
+			return 
+		}
+
+		// Convert incoming bytes to a Go string 
+		message := string(buffer[:bytesRead])
+		fmt.Printf("[%s]: %s", conn.RemoteAddr().String(), message)
+	}
 }
