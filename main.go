@@ -47,6 +47,14 @@ func handleConnection(conn net.Conn){
 	// IP of connecting client 
 	fmt.Println("Connection coming from %s", conn.RemoteAddr().String())
 
+	/* 
+		Converts string into bytes and sends them over open connection 
+		Write(): Sends bytes off to OS, which packages them into networks frames and transmits them
+	
+		Welcome message
+	*/
+	conn.Write([]byte("Welcome! Type something and press Enter (type 'exit' to quit): \n"))
+
 	/*
 		make(): allocate and initialise dynamic data structures 
 		[]byte: slice (dynamically sized array) of bytes 
@@ -69,6 +77,13 @@ func handleConnection(conn net.Conn){
 
 		// Convert incoming bytes to a Go string 
 		message := string(buffer[:bytesRead])
+
 		fmt.Printf("[%s]: %s", conn.RemoteAddr().String(), message)
+
+		// Check if client wants to quit 
+		if message == "exit\n" || message == "exit\r\n" {
+			conn.Write([]byte("Goodbye!\n"))
+			return 
+		}
 	}
 }
