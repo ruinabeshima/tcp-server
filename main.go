@@ -3,14 +3,15 @@ package main
 import (
 	"net"
 	"fmt"
+	"os"
 )
 
 func main(){
 
 	// Open port 8080 on machine and listen for connections 
-	listener, err = net.Listen("tcp", "8080")
+	listener, err := net.Listen("tcp", ":8080")
 	// Error handling
-	if err != "nil" {
+	if err != nil {
 		fmt.Println("Error starting server: ", err)
 		os.Exit(1)
 	}
@@ -23,8 +24,8 @@ func main(){
 	// Infinite for loop to keep server open forever 
 	for {
 		// Accept incoming client connections 
-		conn, err = listener.Accept() 
-		if err != "nil" {
+		conn, err := listener.Accept() 
+		if err != nil {
 			fmt.Println("Error accepting connection: ", err)
 			continue 
 		}
@@ -45,7 +46,7 @@ func handleConnection(conn net.Conn){
 	defer conn.Close() 
 
 	// IP of connecting client 
-	fmt.Println("Connection coming from %s", conn.RemoteAddr().String())
+	fmt.Printf("Connection coming from %s \n", conn.RemoteAddr().String())
 
 	/* 
 		Converts string into bytes and sends them over open connection 
