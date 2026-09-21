@@ -85,5 +85,10 @@ func handleConnection(conn net.Conn){
 			conn.Write([]byte("Goodbye!\n"))
 			return 
 		}
+
+		// Reply back (echo response)
+		// Sprintf(): format string into a variable 
+		response := fmt.Sprintf("Server received: %s", message)
+		conn.Write([]byte(response))
 	}
 }
